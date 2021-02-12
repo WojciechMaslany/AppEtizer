@@ -1,0 +1,31 @@
+﻿@model AppEtizer.Models.RecipesModel[]
+
+<h2>Database items</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Description</th>
+            <th scope="col">Ingriedients</th>
+            <th scope="col">Difficulty</th>
+            <th scope="col">Prepare Time</th>
+            <th scope="col">Servings</th>
+            <th scope="col">Steps</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <th scope="row">@item.RecipeName</th>
+                <td>@item.RecipeDescription</td>
+                <td>@item.RecipeIngredients</td>
+                <td>@item.RecipeDifficulty</td>
+                <td>@item.RecipePrepareTime</td>
+                <td>@item.RecipeServings</td>
+                <td>@item.RecipeSteps</td>
+            </tr>
+        }
+    </tbody>
+</table>

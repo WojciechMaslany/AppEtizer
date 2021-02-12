@@ -1,0 +1,45 @@
+﻿@model AppEtizer.Models.RecipesModel
+
+<h1>Create your recipe</h1>
+
+@using (Html.BeginForm())
+{
+    <div class="form-group">
+        @Html.LabelFor(x => x.RecipeName, "Recipe Name")
+        @Html.TextBoxFor(x => x.RecipeName, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(x => x.RecipeDescription, "Recipe Description")
+        @Html.TextBoxFor(x => x.RecipeDescription, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(x => x.RecipeIngredients, "Recipe Ingriedients")
+        @Html.TextBoxFor(x => x.RecipeIngredients, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(x => x.RecipeDifficulty, "Recipe Difficulty")
+        @Html.TextBoxFor(x => x.RecipeDifficulty, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(x => x.RecipePrepareTime, "Recipe Prepare Time")
+        @Html.TextBoxFor(x => x.RecipePrepareTime, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(x => x.RecipeServings, "Recipe Servings")
+        @Html.TextBoxFor(x => x.RecipeServings, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(x => x.RecipeSteps, "Recipe Steps:")
+        @Html.TextAreaFor(x => x.RecipeSteps, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Add Recipe</button>
+    </div>
+}
