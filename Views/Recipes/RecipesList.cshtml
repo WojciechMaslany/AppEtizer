@@ -12,20 +12,43 @@
             <th scope="col">Prepare Time</th>
             <th scope="col">Servings</th>
             <th scope="col">Steps</th>
+            <th scope="col">Created</th>
+            <th scope="col">Edit</th>          
+            <th scope="col">Delete</th>          
+            <th scope="col">Show</th>          
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <th scope="row">@item.RecipeName</th>
-                <td>@item.RecipeDescription</td>
-                <td>@item.RecipeIngredients</td>
-                <td>@item.RecipeDifficulty</td>
-                <td>@item.RecipePrepareTime</td>
-                <td>@item.RecipeServings</td>
-                <td>@item.RecipeSteps</td>
-            </tr>
+        <tr style="height = 100px">
+            <th scope="row">@item.RecipeName</th>
+            <td>@item.RecipeDescription</td>
+            <td>@item.RecipeIngredients</td>
+            <td>@item.RecipeDifficulty</td>
+            <td>@item.RecipePrepareTime</td>
+            <td>@item.RecipeServings</td>
+            <td>@item.RecipeSteps</td>
+            <td>@item.Created</td>
+            <td>
+                <a asp-controller="Recipes" asp-action="Edit" asp-route-id="@item.RecipeId">
+                    Edit
+                </a>
+            </td>
+            <td>
+                <a asp-controller="Recipes" asp-action="Delete" asp-route-id="@item.RecipeId">
+                    Remove
+                </a>
+            </td>
+            <td>
+                <a asp-controller="Recipes" asp-action="ShowRecipe" asp-route-id="@item.RecipeId">
+                    Show
+                </a>
+            </td>
+            
+            @*<td><input type="button" value="Edit" onclick="location.href='@Url.Action("Edit", "Recipes")'" /></td>
+        <td><input type="button" value="Show" onclick="location.href='@Url.Action("ShowRecipe", "Recipes")'" /></td>*@
+        </tr>
         }
     </tbody>
 </table>

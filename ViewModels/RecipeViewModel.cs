@@ -1,10 +1,13 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
+﻿using Microsoft.AspNetCore.Http;
+using MongoDB.Bson.Serialization.Attributes;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace AppEtizer.Models
+namespace AppEtizer.ViewModels
 {
-    public class RecipesModel
+    public class RecipeViewModel
     {
         [BsonId]
         [BsonIgnoreIfDefault]
@@ -23,10 +26,9 @@ namespace AppEtizer.Models
         public int RecipeServings { get; set; }
 
         public string RecipeSteps { get; set; }
-        
-        public string Image { get; set; }
 
-        public DateTime Created { get; set; } = DateTime.Now;
-       
+        public string CurrentImage { get; set; } = "";
+
+        public IFormFile Image { get; set; } = null;
     }
 }

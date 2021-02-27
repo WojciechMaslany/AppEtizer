@@ -1,14 +1,10 @@
 using AppEtizer.Data;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace AppEtizer
 {
@@ -17,36 +13,37 @@ namespace AppEtizer
         public static void Main(string[] args)
         {
             var host = CreateHostBuilder(args).Build();
-            try { 
-
-            var scope = host.Services.CreateScope();
-
-            var ctx = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-            var userMgr = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
-            var roleMgr = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-
-            ctx.Database.EnsureCreated();
-
-
-            var adminRole = new IdentityRole("Admin");
-            if(!ctx.Roles.Any())
+            try
             {
-                // create a role
-                roleMgr.CreateAsync(adminRole).GetAwaiter().GetResult();
-            }
-            
-            if (!ctx.Users.Any(u => u.UserName == "admin"))
-            {
-                // create an admin
-                var adminUser = new IdentityUser
+
+                var scope = host.Services.CreateScope();
+
+                var ctx = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+                var userMgr = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
+                var roleMgr = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+
+                ctx.Database.EnsureCreated();
+
+
+                var adminRole = new IdentityRole("Admin");
+                if (!ctx.Roles.Any())
                 {
-                    UserName = "admin",
-                    Email = "admin@test.com"
-                };
-                var result = userMgr.CreateAsync(adminUser, "password").GetAwaiter().GetResult();
-                // add role to user
-                userMgr.AddToRoleAsync(adminUser, adminRole.Name);
-            }
+                    // create a role
+                    roleMgr.CreateAsync(adminRole).GetAwaiter().GetResult();
+                }
+
+                if (!ctx.Users.Any(u => u.UserName == "admin"))
+                {
+                    // create an admin
+                    var adminUser = new IdentityUser
+                    {
+                        UserName = "admin",
+                        Email = "admin@test.com"
+                    };
+                    var result = userMgr.CreateAsync(adminUser, "password").GetAwaiter().GetResult();
+                    // add role to user
+                    userMgr.AddToRoleAsync(adminUser, adminRole.Name);
+                }
             }
             catch (Exception e)
             {

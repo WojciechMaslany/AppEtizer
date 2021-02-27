@@ -4,6 +4,12 @@
 
 <h1>Recipe name: @Model.RecipeName </h1>
 
+@if (!String.IsNullOrEmpty(Model.Image))
+{
+    var image_path = $"/Image/{Model.Image}";
+    <img src="@image_path" width="500" />
+}
+
 <div>Recipe Description: @Model.RecipeDescription</div>
 <div>Recipe Ingredients: @Model.RecipeIngredients</div>
 <div>Recipe Difficulty: @Model.RecipeDifficulty</div>

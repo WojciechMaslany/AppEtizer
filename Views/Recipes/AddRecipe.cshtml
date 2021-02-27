@@ -1,9 +1,10 @@
-﻿@model AppEtizer.Models.RecipesModel
+﻿@model AppEtizer.ViewModels.RecipeViewModel
 
 <h1>Create your recipe</h1>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
+
     <div class="form-group">
         @Html.LabelFor(x => x.RecipeName, "Recipe Name")
         @Html.TextBoxFor(x => x.RecipeName, new { @class = "form-control" })
@@ -16,7 +17,7 @@
 
     <div class="form-group">
         @Html.LabelFor(x => x.RecipeIngredients, "Recipe Ingriedients")
-        @Html.TextBoxFor(x => x.RecipeIngredients, new { @class = "form-control" })
+        @Html.TextAreaFor(x => x.RecipeIngredients, new { @class = "form-control" })
     </div>
 
     <div class="form-group">
@@ -38,6 +39,10 @@
         @Html.LabelFor(x => x.RecipeSteps, "Recipe Steps:")
         @Html.TextAreaFor(x => x.RecipeSteps, new { @class = "form-control" })
     </div>
+    <div class="form-group">
+        <input asp-for="Image" />
+    </div>
+    @*<input type="submit" value="Submit" />*@
 
     <div class="form-group">
         <button type="submit" class="btn btn-primary">Add Recipe</button>

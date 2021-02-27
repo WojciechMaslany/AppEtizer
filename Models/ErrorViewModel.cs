@@ -1,5 +1,3 @@
-using System;
-
 namespace AppEtizer.Models
 {
     public class ErrorViewModel

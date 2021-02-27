@@ -1,0 +1,67 @@
+﻿@model AppEtizer.ViewModels.RecipeViewModel
+
+<h1>Edit your recipe</h1>
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @if (!String.IsNullOrEmpty(Model.CurrentImage))
+    {
+        var image_path = $"/Image/{Model.CurrentImage}";
+        <img src="@image_path" width="500" />
+    }
+
+    <div class="form-group">
+        @Html.LabelFor(x => x.RecipeId, new { @class = "form-control", @style = "display: none" })
+        @Html.TextBoxFor(x => x.RecipeId, new { @class = "form-control", @style="display: none"@*, @Value = Model.RecipeName*@})
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(x => x.RecipeName, "Recipe Name")
+        @Html.TextBoxFor(x => x.RecipeName, new { @class = "form-control"@*, @Value = Model.RecipeName*@})
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(x => x.RecipeDescription, "Recipe Description")
+        @Html.TextBoxFor(x => x.RecipeDescription, new { @class = "form-control"@*, @Value = Model.RecipeDescription*@ })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(x => x.RecipeIngredients, "Recipe Ingriedients")
+        @Html.TextBoxFor(x => x.RecipeIngredients, new { @class = "form-control"@*, @Value = Model.RecipeIngredients*@ })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(x => x.RecipeDifficulty, "Recipe Difficulty")
+        @Html.TextBoxFor(x => x.RecipeDifficulty, new { @class = "form-control"@*, @Value = Model.RecipeDifficulty*@ })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(x => x.RecipePrepareTime, "Recipe Prepare Time")
+        @Html.TextBoxFor(x => x.RecipePrepareTime, new { @class = "form-control"@*, @Value = Model.RecipePrepareTime*@ })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(x => x.RecipeServings, "Recipe Servings")
+        @Html.TextBoxFor(x => x.RecipeServings, new { @class = "form-control"@*, @Value = Model.RecipeServings*@ })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(x => x.RecipeSteps, "Recipe Steps:")
+        @Html.TextAreaFor(x => x.RecipeSteps, new { @class = "form-control"@*, @Value = Model.RecipeSteps*@ })
+    </div>
+
+    <div class="form-group">
+        <input asp-for="Image" />
+        <input asp-for="CurrentImage" type="hidden" />
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary" asp-controller="Recipes" asp-action="Edit" method="post" asp-route-id="@Model.RecipeId"> Edit Recipe</button>
+    </div>
+
+
+
+    @*<div class="form-group">
+            <button type="submit" class="btn btn-primary">Edit Recipe</button>
+        </div>*@
+}

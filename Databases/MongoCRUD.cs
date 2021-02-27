@@ -1,9 +1,8 @@
-﻿using System;
+﻿using MongoDB.Bson;
+using MongoDB.Driver;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using MongoDB.Bson;
-using MongoDB.Driver;
 
 namespace AppEtizer.Databases
 {
@@ -29,13 +28,32 @@ namespace AppEtizer.Databases
 
             return collection.Find(new BsonDocument()).ToList();
         }
+        //var result = collection.ReplaceOne(
+        //    new BsonDocument("_id", id),
+        //    record,
+        //    new UpdateOptions { IsUpsert = true });
 
-        public T LoadRecordById<T>(string table, Guid id)
+        public T LoadRecordById<T>(string table, string id)
+        {
+            var collection = db.GetCollection<T>(table);
+            var filter = Builders<T>.Filter.Eq("RecipeId", id);
+
+            return collection.Find(filter).FirstOrDefault();
+        }
+
+        public void UpsertRecord<T>(string table, string recipeName, T record)
+        {
+            var collection = db.GetCollection<T>(table);
+            var filter = new BsonDocument("RecipeName", recipeName);
+            collection.ReplaceOne(filter, record, new ReplaceOptions { IsUpsert = true });
+               
+        }
+
+        public void DeleteRecord<T>(string table, string id)
         {
             var collection = db.GetCollection<T>(table);
             var filter = Builders<T>.Filter.Eq("Id", id);
-
-            return collection.Find(filter).First();
+            collection.FindOneAndDelete(filter);
         }
     }
 }
